@@ -15,6 +15,9 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    const { books } = this.state;
+    console.log(books);
+
     return (
       <div className="app">
         <Route
@@ -40,12 +43,12 @@ class BooksApp extends React.Component {
           exact
           path="/"
           render={() => (
-            <div className="list-books">
-              <BookList />
+            <React.Fragment>
+              <BookList books={books} />
               <Link to="/search" className="open-search">
                 <button>Add a book</button>
               </Link>
-            </div>
+            </React.Fragment>
           )}
         />
       </div>
