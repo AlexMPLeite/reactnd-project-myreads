@@ -4,6 +4,7 @@ import { Route, Link } from "react-router-dom";
 import * as BooksAPI from "./utils/BooksAPI";
 import "./App.css";
 import BookList from "./components/Booklist";
+import AddBook from "./components/AddBook";
 
 class BooksApp extends React.Component {
   state = {
@@ -20,24 +21,7 @@ class BooksApp extends React.Component {
 
     return (
       <div className="app">
-        <Route
-          path="/search"
-          render={() => (
-            <div className="search-books">
-              <div className="search-books-bar">
-                <Link to="/" className="close-search">
-                  Close
-                </Link>
-                <div className="search-books-input-wrapper">
-                  <input type="text" placeholder="Search by title or author" />
-                </div>
-              </div>
-              <div className="search-books-results">
-                <ol className="books-grid" />
-              </div>
-            </div>
-          )}
-        />
+        <Route path="/search" render={() => <AddBook />} />
 
         <Route
           exact
