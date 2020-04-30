@@ -6,7 +6,6 @@ import "./App.css";
 class BooksApp extends React.Component {
   state = {
     books: [],
-    showSearchPage: false,
   };
 
   componentDidMount() {
@@ -303,7 +302,6 @@ class BooksApp extends React.Component {
               <Link to="/search" className="open-search">
                 <button>Add a book</button>
               </Link>
-              >
             </div>
           )}
         />
