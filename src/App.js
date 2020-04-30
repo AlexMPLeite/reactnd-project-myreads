@@ -15,6 +15,18 @@ class BooksApp extends React.Component {
     BooksAPI.getAll().then((books) => this.setState({ books }));
   }
 
+  changeShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(() => {
+      book.shelf = shelf;
+
+      this.setState((previousState) => ({
+        books: previousState.books
+          .filter((previousBook) => previousBook.id !== book.id)
+          .concat(book),
+      }));
+    });
+  };
+
   render() {
     const { books } = this.state;
     console.log(books);
@@ -28,7 +40,7 @@ class BooksApp extends React.Component {
           path="/"
           render={() => (
             <React.Fragment>
-              <BookList books={books} />
+              <BookList books={books} changeShelf={this.changeShelf} />
               <Link to="/search" className="open-search">
                 <button>Add a book</button>
               </Link>

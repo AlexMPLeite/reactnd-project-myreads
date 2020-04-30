@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import Bookshelf from "./Bookshelf";
 
-const BookList = ({ bookListTitle, books }) => {
+const BookList = ({ bookListTitle, books, changeShelf }) => {
   const shelfs = [
     { value: "currentlyReading", title: "Currently Reading" },
     { value: "wantToRead", title: "Want to Read" },
@@ -22,7 +22,12 @@ const BookList = ({ bookListTitle, books }) => {
               (book) => book.shelf === shelf.value
             );
             return (
-              <Bookshelf key={index} books={filteredBooks} shelf={shelf} />
+              <Bookshelf
+                key={index}
+                books={filteredBooks}
+                shelf={shelf}
+                changeShelf={changeShelf}
+              />
             );
           })}
         </div>
@@ -34,6 +39,7 @@ const BookList = ({ bookListTitle, books }) => {
 BookList.propTypes = {
   bookListTitle: PropTypes.string,
   books: PropTypes.array.isRequired,
+  changeShelf: PropTypes.func.isRequired,
 };
 
 export default BookList;
