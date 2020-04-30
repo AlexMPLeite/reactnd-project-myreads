@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 import ChangeShelf from "./ChangeShelf";
 
 const Book = ({ book, changeShelf }) => {
-  const multipleAuthors = book.authors.map((author, index) => (
-    <div key={index}>{author}</div>
-  ));
+  const multipleAuthors = () => {
+    book.authors.map((author, index) => <div key={index}>{author}</div>);
+  };
 
   return (
     <li>
@@ -24,7 +24,11 @@ const Book = ({ book, changeShelf }) => {
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">
-          {book.authors.length > 1 ? multipleAuthors : book.authors}
+          {!book.authors ? (
+            <div>N/A</div>
+          ) : (
+            [book.authors.length > 1 ? multipleAuthors() : book.authors]
+          )}
         </div>
       </div>
     </li>
