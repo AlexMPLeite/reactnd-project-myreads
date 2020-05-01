@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
+import { HashRouter, Route, Link } from "react-router-dom";
 
 import * as BooksAPI from "./utils/BooksAPI";
 import "./App.css";
@@ -32,25 +32,27 @@ class BooksApp extends React.Component {
 
     return (
       <div className="app">
-        <Route
-          path="/search"
-          render={() => (
-            <AddBook books={books} changeShelf={this.changeShelf} />
-          )}
-        />
+        <HashRouter basename="/">
+          <Route
+            path="/search"
+            render={() => (
+              <AddBook books={books} changeShelf={this.changeShelf} />
+            )}
+          />
 
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <React.Fragment>
-              <BookList books={books} changeShelf={this.changeShelf} />
-              <Link to="/search" className="open-search">
-                <button>Add a book</button>
-              </Link>
-            </React.Fragment>
-          )}
-        />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <React.Fragment>
+                <BookList books={books} changeShelf={this.changeShelf} />
+                <Link to="/search" className="open-search">
+                  <button>Add a book</button>
+                </Link>
+              </React.Fragment>
+            )}
+          />
+        </HashRouter>
       </div>
     );
   }
