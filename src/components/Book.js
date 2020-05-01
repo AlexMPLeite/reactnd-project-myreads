@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ChangeShelf from "./ChangeShelf";
+import noCover from "../images/no-cover.png";
 
-const Book = ({ book, changeShelf }) => {
+const Book = ({ book, books, changeShelf }) => {
   const multipleAuthors = () => {
     book.authors.map((author, index) => <div key={index}>{author}</div>);
   };
-
   return (
     <li>
       <div className="book">
@@ -15,12 +15,13 @@ const Book = ({ book, changeShelf }) => {
           <div
             className="book-cover"
             style={{
-              width: 128,
-              height: 193,
-              backgroundImage: `url(${book.imageLinks.thumbnail})`,
+              backgroundImage:
+                book.imageLinks && book.imageLinks.thumbnail
+                  ? `url(${book.imageLinks.thumbnail})`
+                  : `url(${noCover}`,
             }}
           />
-          <ChangeShelf book={book} changeShelf={changeShelf} />
+          <ChangeShelf book={book} books={books} changeShelf={changeShelf} />
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">
@@ -37,6 +38,7 @@ const Book = ({ book, changeShelf }) => {
 
 Book.propTypes = {
   book: PropTypes.object.isRequired,
+  books: PropTypes.array.isRequired,
   changeShelf: PropTypes.func.isRequired,
 };
 

@@ -8,6 +8,7 @@ import Book from "./Book";
 class AddBook extends React.Component {
   static propTypes = {
     changeShelf: PropTypes.func.isRequired,
+    books: PropTypes.array.isRequired,
   };
 
   state = {
@@ -26,7 +27,7 @@ class AddBook extends React.Component {
   };
 
   render() {
-    const { changeShelf } = this.props;
+    const { books, changeShelf } = this.props;
     const { bookList } = this.state;
     return (
       <div className="search-books">
@@ -39,7 +40,12 @@ class AddBook extends React.Component {
           {bookList.length > 0 && (
             <ol className="books-grid">
               {bookList.map((book) => (
-                <Book key={book.id} book={book} changeShelf={changeShelf} />
+                <Book
+                  key={book.id}
+                  book={book}
+                  books={books}
+                  changeShelf={changeShelf}
+                />
               ))}
             </ol>
           )}
