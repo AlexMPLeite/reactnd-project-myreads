@@ -6,7 +6,7 @@ import noCover from "../images/no-cover.png";
 
 const Book = ({ book, books, changeShelf }) => {
   const multipleAuthors = () => {
-    book.authors.map((author, index) => <div key={index}>{author}</div>);
+    return book.authors.map((author, index) => <div key={index}>{author}</div>);
   };
   return (
     <li>
@@ -25,11 +25,9 @@ const Book = ({ book, books, changeShelf }) => {
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">
-          {!book.authors ? (
-            <div>N/A</div>
-          ) : (
-            [book.authors.length > 1 ? multipleAuthors() : book.authors]
-          )}
+          {!book.authors
+            ? ""
+            : [book.authors.length > 1 ? multipleAuthors() : book.authors]}
         </div>
       </div>
     </li>
