@@ -14,6 +14,7 @@ class AddBook extends React.Component {
   state = {
     query: "",
     bookList: [],
+    error: false,
   };
 
   getBook = (query) => {
@@ -21,14 +22,18 @@ class AddBook extends React.Component {
 
     if (query) {
       BooksAPI.search(query.trim(), 20).then((books) => {
-        books.length > 0 && this.setState({ bookList: books });
+        books.length > 0
+          ? this.setState({ bookList: books, error: false })
+          : this.setState({ bookList: [], error: true });
       });
-    } else this.setState({ bookList: [] });
+
+      // if query is empty => reset state to default
+    } else this.setState({ bookList: [], error: false });
   };
 
   render() {
     const { books, changeShelf } = this.props;
-    const { bookList } = this.state;
+    const { bookList, error } = this.state;
     return (
       <div className="search-books">
         <SearchBar
@@ -38,17 +43,21 @@ class AddBook extends React.Component {
         />
         <div className="search-books-results">
           {bookList.length > 0 && (
-            <ol className="books-grid">
-              {bookList.map((book) => (
-                <Book
-                  key={book.id}
-                  book={book}
-                  books={books}
-                  changeShelf={changeShelf}
-                />
-              ))}
-            </ol>
+            <div>
+              <h4>{`${bookList.length} Books found...`}</h4>
+              <ol className="books-grid">
+                {bookList.map((book) => (
+                  <Book
+                    key={book.id}
+                    book={book}
+                    books={books}
+                    changeShelf={changeShelf}
+                  />
+                ))}
+              </ol>
+            </div>
           )}
+          {error && <h4>Sorry, no books found. Please try again!</h4>}
         </div>
       </div>
     );
